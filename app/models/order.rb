@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :customer
 
-  validates :total, numericality: { greater_than: 0 }
+  validates :total, numericality: { greater_than: 0, message: ":total is greater than 0" }
   validate :date_future
 
   def date_future

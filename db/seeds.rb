@@ -83,3 +83,20 @@ puts "Creating 15 customers"
 end
 puts "Finished! Creating 15 customers"
 
+# Create between 1 and 5 orders for each customer.
+puts "Creating between 1 and 5 orders for each customer"
+customers = Customer.all
+customers.each do |customer|
+  rand(1..5).times do
+    order = Order.create(
+      date: Faker::Date.between(from: '2020-01-01', to: '2022-12-31'),
+      total: 1,
+      customer_id: customer.id
+    )
+    unless order.persisted?
+      order.errors.full_messages.join(",")
+      p order
+    end
+  end
+end
+puts "Finished! Creating between 1 and 5 orders for each customer"
