@@ -4,6 +4,7 @@ require "faker"
 Song.destroy_all
 Album.destroy_all
 Artist.destroy_all
+Customer.destroy_all
 
 # Create 10 artists.
 puts "Creating 10 artists"
@@ -63,3 +64,22 @@ albums.each do |album|
   end
 end
 puts "Finished! Create between 4 and 10 songs for each album."
+
+# Create 15 customers.
+puts "Creating 15 customers"
+15.times do
+  first_name = Faker::Name.first_name
+  name = first_name + " " + Faker::Name.last_name
+  customer = Customer.create(
+    username: Faker::Internet.username(specifier: name, separators: %w(. _ -)),
+    email: Faker::Internet.unique.email(name: first_name),
+    password: Faker::Internet.password,
+    name: name,
+    active: true
+  )
+  unless customer.persisted?
+    puts customer.errors.full_messages.join(",")
+  end
+end
+puts "Finished! Creating 15 customers"
+
