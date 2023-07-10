@@ -6,7 +6,6 @@ class CreateCustomers < ActiveRecord::Migration[7.0]
       t.string :password
       t.string :name
       t.boolean :active
-
       t.timestamps
     end
   end
